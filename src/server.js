@@ -11,10 +11,9 @@ const MemoryStore       = require('memorystore')(session);
 
 //////////////////////////////// INITIALIZER
 const app               = express();
-//require('./config/passport');
+require('./config/passport');
 
 //////////////////////////////// SETTINGS
-console.log(hbs);
 app.set('port', process.env.PORT || 4000);
 app.set('host', process.env.HOST || '0.0.0.0');
 app.set('views', path.join(__dirname, 'views'));
