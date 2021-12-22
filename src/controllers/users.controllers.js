@@ -22,26 +22,20 @@ const transporter = nodemailer.createTransport({
 //Users signup
 usersCtrl.renderSignUpForm = async (req, res) => {
     res.render('users/signup');
-    try {
-        const sessions = await stripe.checkout.sessions.list();
-        const data = sessions.data;
-    } catch (err) {
-        console.log(err);
-    }
 };
 usersCtrl.signUp = async (req, res) => {
     const errors = [];
-    const { name, email, password, confirm_password, phone, ocupation, species } = req.body;
+    const { name, email, password, confirm_password } = req.body;
     if (password != confirm_password) {
-        errors.push({ text: 'Las contraseñas no coinciden' });
+        errors.push({ text: 'Passwords do not match' });
     } if (password.length < 7) {
-        errors.push({ text: 'La contraseña debe de ser al menos 7 caracteres de longitud' });
+        errors.push({ text: 'Passwords must be at least 7 characters' });
     } if (errors.length > 0) {
         res.render('users/signup', { errors, name, email });
     } else {
         const emailUser = await User.findOne({ email: email });
         if (emailUser) {
-            req.flash('error_msg', 'Este email ya está en uso');
+            req.flash('error_msg', 'This email is already in use');
             res.redirect('/users/signup');
         } else { 
             try {
@@ -66,14 +60,15 @@ usersCtrl.signUp = async (req, res) => {
                         transporter.sendMail({
                             to: newUser.email,
                             subject: 'Confirm Email',
-                            html: `Por favor, ingrese al link siguiente para verificar su correo: <a href="${url}">${url}</a>`
+                            html: `Please click on the following link to confirm your email: <a href="${url}">${url}</a>`
                         });
                     }
                 )
                 const user = await User.findOne({ email: email });
                 const idForSubscription = user.id;
-                req.flash('success_msg', 'Ya estás registrado, continua con el pago para acceder a tu cuenta');
-                res.redirect(`/users/select-subscription/${idForSubscription}`);
+                req.flash('success_msg', 'You are successfully registered, proceed to payment');
+                res.redirect('/');
+                //res.redirect(`/users/select-subscription/${idForSubscription}`);
             } catch (err) {
                 console.log(err);
                 req.flash('error_msg', 'Oops! Something went wrong, try again later');
@@ -92,7 +87,7 @@ usersCtrl.confirmPost = async (req, res) => {
         console.log(jwt.verify(token, process.env.TOKEN_SECRETO));
         await User.findByIdAndUpdate(user, { confirmed: true });
         await Confirm.findOneAndDelete({ user: user.id });
-        req.flash('success_msg', 'Ahora puedes acceder a tu nueva cuenta');
+        req.flash('success_msg', 'Now you can access to your account');
         res.redirect("/users/signin");
     } catch (err) {
         console.log(err);
