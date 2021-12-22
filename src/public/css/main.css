@@ -1,3 +1,21 @@
+html {
+    scrollbar-face-color: #646464;
+    scrollbar-base-color: #646464;
+    scrollbar-3dlight-color: #646464;
+    scrollbar-highlight-color: #646464;
+    scrollbar-track-color: #000;
+    scrollbar-arrow-color: #000;
+    scrollbar-shadow-color: #646464;
+    scrollbar-dark-shadow-color: #646464;
+  }
+  
+  ::-webkit-scrollbar { width: 8px; height: 3px;}
+  ::-webkit-scrollbar-button {  background-color: #666; }
+  ::-webkit-scrollbar-track {  background-color: #646464;}
+  ::-webkit-scrollbar-track-piece { background-color: #212529;}
+  ::-webkit-scrollbar-thumb { height: 50px; background-color: #666;}
+  ::-webkit-scrollbar-corner { background-color: #646464;}
+  ::-webkit-resizer { background-color: #666;}
 .signup-form {
     background: linear-gradient(335deg, rgba(242,20,255,1) 0%, #fd7e14 60%);
     padding: 2rem;
@@ -27,11 +45,43 @@ input[type="button"] {
     color: white;
     transition: all 0.2s;
 }
+.dropdown-menu {
+    border: none !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    transition: all 0.3s;
+}
+.dropdown-item {
+    transition: all 0.3s;
+}
+.dropdown-toggle {
+    transition: all 0.3s;
+}
+.dropdown {
+    transition: all 0.3s;
+}
+.show {
+    transition: all 0.3s;
+}
+.dropdown-item:hover {
+    background-color: #3f464d !important;
+}
+.btn {
+    transition: all 0.3s;
+}
 @media (max-width: 1024px) {
     .signup-form {
         max-width: 450px;
         width: 90%;
         margin: auto;
         margin-top: 6rem;
+    }
+    .dropdown-menu {
+        border: none !important;
+        box-shadow: none !important;
+        color: #fff !important;
+    }
+    .dropdown-item:hover {
+        background-color: #3f464d !important;
     }
 }

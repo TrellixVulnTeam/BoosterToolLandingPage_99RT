@@ -2,24 +2,30 @@
       class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom border-bottom"
     >
       <div class="container">
-        <a class="navbar-brand" href="/">app</a
+        <a class="navbar-brand" href="/">Hydrus</a
         ><button
           data-bs-toggle="collapse"
           class="navbar-toggler"
           data-bs-target="#navbarResponsive"
         >
-          <span class="visually-hidden">Toggle navigation</span
+          <span class="visually-hidden">Navigation</span
           ><span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="/about">about us</a></li>
+            <li class="nav-item"><a class="nav-link" href="/users/signup">create an account</a></li>
             <li class="nav-item"></li>
           </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="/users/signup">create an account</a></li>
+            <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" href="/about" data-bs-toggle="dropdown">learn more</a>
+              <div class="dropdown-menu bg-dark text-light">
+                <a href="/" class="dropdown-item text-light">About Us</a>
+                <a href="/" class="dropdown-item text-light">Policies</a>
+                <a href="/" class="dropdown-item text-light">Join Hydrus</a>
+              </div>
+            </li>
             <li class="nav-item"></li>
           </ul>
         </div>
