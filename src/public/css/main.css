@@ -37,6 +37,12 @@ html {
     box-shadow: none;
     border-radius: 8px;
 }
+.alert {
+    margin-top: 6rem;
+    position: absolute;
+    width: 95%;
+    margin-left: 2.5%;
+}
 input[type="button"] {
     transition: all 0.3s;
     box-shadow: rgba(55, 78, 109, 0) 5px 5px 10px, rgba(35, 36, 35, 0) -5px -5px 10px;

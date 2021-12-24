@@ -45,7 +45,7 @@ usersCtrl.signUp = async (req, res) => {
                 });
                 stripeId = customer.id;
                 stripeInvoicePrefix = customer.invoice_prefix;
-                const newUser = new User({name, email, password, stripeId, stripeInvoicePrefix, phone, ocupation, species });
+                const newUser = new User({name, email, password, stripeId, stripeInvoicePrefix});
                 newUser.password = await newUser.encryptPassword(password);
                 newUser.active = false;
                 await newUser.save();
