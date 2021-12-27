@@ -8,4 +8,12 @@ indexCtrl.renderAbout = (req, res) => {
     res.render('about');
 };
 
+indexCtrl.renderPolices = (req, res) => {
+    res.render('polices');
+};
+
+indexCtrl.renderHydrus = (req, res) => {
+    res.render('hydrus');
+};
+
 module.exports = indexCtrl;
