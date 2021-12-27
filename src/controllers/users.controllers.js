@@ -33,48 +33,53 @@ usersCtrl.signUp = async (req, res) => {
     } if (errors.length > 0) {
         res.render('users/signup', { errors, name, email });
     } else {
-        const emailUser = await User.findOne({ email: email });
-        if (emailUser) {
-            req.flash('error_msg', 'This email is already in use');
-            res.redirect('/users/signup');
-        } else { 
-            try {
-                const customer = await stripe.customers.create({
-                    name: name, 
-                    email: email,
-                });
-                stripeId = customer.id;
-                stripeInvoicePrefix = customer.invoice_prefix;
-                const newUser = new User({name, email, password, stripeId, stripeInvoicePrefix});
-                newUser.password = await newUser.encryptPassword(password);
-                newUser.active = false;
-                await newUser.save();
-                const id = newUser.id;
-                jwt.sign({ id }, process.env.TOKEN_SECRETO, { expiresIn: '1d', },
-                    async (err, emailToken) => {
-                        const newConfirm = new Confirm({});
-                        newConfirm.content = emailToken;
-                        newConfirm.user = newUser.id;
-                        await newConfirm.save();
-                        const url = `https://animals-recipies-app.herokuapp.com/users/confirmation/${emailToken}`;
-                        transporter.sendMail({
-                            to: newUser.email,
-                            subject: 'Confirm Email',
-                            html: `Please click on the following link to confirm your email: <a href="${url}">${url}</a>`
-                        });
-                    }
-                )
-                const user = await User.findOne({ email: email });
-                const idForSubscription = user.id;
-                req.flash('success_msg', 'You are successfully registered, proceed to payment');
-                res.redirect('/');
-                //res.redirect(`/users/select-subscription/${idForSubscription}`);
-            } catch (err) {
-                console.log(err);
-                req.flash('error_msg', 'Oops! Something went wrong, try again later');
-                res.redirect('/');
+        try {
+            const emailUser = await User.findOne({ email: email });
+            console.log(emailUser);
+            if (emailUser) {
+                req.flash('error_msg', 'This email is already in use');
+                res.redirect('/users/signup');
+            } else { 
+                try {
+                    const customer = await stripe.customers.create({
+                        name: name, 
+                        email: email,
+                    });
+                    stripeId = customer.id;
+                    stripeInvoicePrefix = customer.invoice_prefix;
+                    const newUser = new User({name, email, password, stripeId, stripeInvoicePrefix});
+                    newUser.password = await newUser.encryptPassword(password);
+                    newUser.active = false;
+                    await newUser.save();
+                    const id = newUser.id;
+                    jwt.sign({ id }, process.env.TOKEN_SECRETO, { expiresIn: '1d', },
+                        async (err, emailToken) => {
+                            const newConfirm = new Confirm({});
+                            newConfirm.content = emailToken;
+                            newConfirm.user = newUser.id;
+                            await newConfirm.save();
+                            const url = `https://animals-recipies-app.herokuapp.com/users/confirmation/${emailToken}`;
+                            transporter.sendMail({
+                                to: newUser.email,
+                                subject: 'Confirm Email',
+                                html: `Please click on the following link to confirm your email: <a href="${url}">${url}</a>`
+                            });
+                        }
+                    )
+                    const user = await User.findOne({ email: email });
+                    const idForSubscription = user.id;
+                    req.flash('success_msg', 'You are successfully registered, proceed to payment');
+                    res.redirect('/');
+                    //res.redirect(`/users/select-subscription/${idForSubscription}`);
+                } catch (err) {
+                    console.log(err);
+                    req.flash('error_msg', 'Oops! Something went wrong, try again later');
+                    res.redirect('/');
+                }
             }
-        }
+        } catch (err) {
+            console.log(err);
+        }        
     }
 };
 
