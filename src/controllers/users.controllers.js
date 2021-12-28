@@ -58,7 +58,7 @@ usersCtrl.signUp = async (req, res) => {
                             newConfirm.content = emailToken;
                             newConfirm.user = newUser.id;
                             await newConfirm.save();
-                            const url = `https://animals-recipies-app.herokuapp.com/users/confirmation/${emailToken}`;
+                            const url = `https://boost-tool.herokuapp.com/users/confirmation/${emailToken}`;
                             transporter.sendMail({
                                 to: newUser.email,
                                 subject: 'Confirm Email',
@@ -209,7 +209,7 @@ usersCtrl.manageSubscriptionForm = async (req, res) => {
 };
 usersCtrl.postCustomerPortal = async (req, res) => {
     try {
-        const returnUrl = 'https://animals-recipies-app.herokuapp.com/users/updateName?session_id{CHECKOUT_SESSION_ID}';
+        const returnUrl = 'https://boost-tool.herokuapp.com/users/updateName?session_id{CHECKOUT_SESSION_ID}';
         const user = await User.findById(req.user.id).lean();
         const customer = user.stripeId;
         const portalSession = await stripe.billingPortal.sessions.create({
@@ -240,7 +240,7 @@ usersCtrl.createEmailCHangePassword = async (req, res) => {
         const email = user.email;
         jwt.sign({ id }, process.env.TOKEN_SECRETO, { expiresIn: 1200, },
             async (err, emailToken) => {
-                const url = `http://animals-recipies-app.herokuapp.com/users/changePassword/${emailToken}`;
+                const url = `https://boost-tool.herokuapp.com/users/changePassword/${emailToken}`;
                 transporter.sendMail({
                     to: email,
                     subject: 'Change Password',
@@ -350,17 +350,13 @@ usersCtrl.webhookPost = async (req, res) => {
         data = event.data;
         eventType = event.type;
 
-        if (eventType === "invoice.paid") {
-            console.log('hola')
+        if (eventType === "charge.succeeded") {
             const customerId = event.data.object.customer;
-            const subscriptionId = event.data.object.subscription;
-            console.log(event)
-            console.log(customerId, event.data.object.subscription);
             const customer = await stripe.customers.retrieve(customerId);
             const email = customer.email;
-            const user = await User.findOne({ email: email});
+            const user = await User.findOne({ email: email });
             const userId = user.id;
-            await User.findByIdAndUpdate(userId, { suscribed: true, stripeSubscriptionId: subscriptionId})
+            await User.findByIdAndUpdate(userId, { suscribed: true })
         }
 
     } else {
@@ -406,7 +402,7 @@ usersCtrl.forgotPassword = async (req, res) => {
                 console.log(emailToken);
                 console.log("aaaa");
                 await User.findByIdAndUpdate(id, {forgotPassword: emailToken}).lean();
-                const url = `http://animals-recipies-app.herokuapp.com/changeForgotPassword/${emailToken}`;
+                const url = `https://boost-tool.herokuapp.com/changeForgotPassword/${emailToken}`;
                 transporter.sendMail({
                     to: email,
                     subject: 'Cambio de contraseña',
