@@ -69,12 +69,12 @@ usersCtrl.signUp = async (req, res) => {
                     const user = await User.findOne({ email: email });
                     const idForSubscription = user.id;
                     req.flash('success_msg', 'You are successfully registered, proceed to payment');
-                    res.redirect('/');
+                    res.redirect(`/users/select-subscription/${idForSubscription}`);
                     //res.redirect(`/users/select-subscription/${idForSubscription}`);
                 } catch (err) {
                     console.log(err);
                     req.flash('error_msg', 'Oops! Something went wrong, try again later');
-                    res.redirect(`/users/select-subscription/${idForSubscription}`);
+                    res.redirect('/');
                 }
             }
         } catch (err) {
@@ -299,7 +299,7 @@ usersCtrl.createCheckoutSession = async (req, res) => {
     // Create new Checkout Session for the order
     try {
         const session = await stripe.checkout.sessions.create({
-            mode: "subscription",
+            mode: "payment",
             customer: customerId,
             payment_method_types: ["card"],
             line_items: [
@@ -311,15 +311,15 @@ usersCtrl.createCheckoutSession = async (req, res) => {
             // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
             //success_url: `${domainURL}/users/signin`,
             //cancel_url: `${domainURL}/`,
-            success_url: 'https://animals-recipies-app.herokuapp.com/users/signin?session_id{CHECKOUT_SESSION_ID}', 
-            cancel_url: 'https://animals-recipies-app.herokuapp.com/users/signin?session_id{CHECKOUT_SESSION_ID}',
+            success_url: 'https://boost-tool.herokuapp.com/users/signin?session_id{CHECKOUT_SESSION_ID}', 
+            cancel_url: 'https://boost-tool.herokuapp.com/users/signin?session_id{CHECKOUT_SESSION_ID}',
         })
-        req.flash('success_msg', 'Pago recibido correctamente, solo verifique su correo si no lo ha hecho');
+        req.flash('success_msg', 'Payment recieved successfully, confirm your email address');
         console.log(session.url);
         return res.redirect(303, session.url);  
     } catch (e) {
         res.status(400);
-        req.flash('error_msg', 'Oops, algo ha salido mal, intente nuevamente más tarde');
+        req.flash('error_msg', 'Oops, something went wrong. Please try again later');
         return res.send({
             error: {
                 message: e.message,
