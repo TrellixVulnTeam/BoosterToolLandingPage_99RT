@@ -21,24 +21,7 @@ passport.use('login-normal', new LocalStrategy({
         // Match user's password
         const match = await user.matchPassword(password);
         if (match) {
-            await Confirm.findOneAndDelete({user: user._id});
-            const subs = user.stripeSubscriptionId;
-            if ( subs != 'not_subscribed' ){
-                try {
-                    const subscription = await stripe.subscriptions.retrieve(subs);
-                    const status = subscription.status;
-                    if(status != "active"){
-                        try {
-                            await User.findOneAndUpdate(email, {suscribed: false, stripeSubscriptionId: 'not_subscribed', });
-                            return done(null, false, { message: 'You need to be suscribed to login'});
-                        } catch(err) {
-                            console.log(err);
-                        }
-                    }
-                } catch (err) {
-                    console.log(err);
-                }
-            }
+            await Confirm.findOneAndDelete({user: user.id});
             return done(null, user);
         } else {
             return done(null, false, { message: 'Incorrect username or password'});

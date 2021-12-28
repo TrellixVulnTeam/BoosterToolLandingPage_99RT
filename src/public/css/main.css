@@ -102,6 +102,25 @@ input[type="button"] {
     max-width: 25rem;
     margin: auto ;
 }
+.show-hide-key {
+    display: block;
+    width: 60%;
+    margin: auto;
+    padding: 2rem;
+}
+.key {
+    color: #343A40;
+    margin-top: 1rem;
+}
+.span2, .span3 {
+    padding: 0.5rem;
+}
+.span3:focus ~ .alert {
+    color: #343A40;
+  }
+  .span2:focus ~ .alert {
+    color: white;
+  }
 @media (max-width: 1024px) {
     .signup-form {
         max-width: 450px;
@@ -137,5 +156,11 @@ input[type="button"] {
     .remainder {
         width: 100%;
         margin: auto ;
+    }
+    .show-hide-key {
+        display: block;
+        width: 90%;
+        margin: auto;
+        padding: 2rem;
     }
 }

@@ -11,7 +11,8 @@ const {
     webhookGet,
     config,
     page404,
-    confirmPost
+    confirmPost,
+    myAccount
 }                       = require('../controllers/users.controllers');
 const {
     isAuthenticated
@@ -24,6 +25,8 @@ router.get('/users/signup', renderSignUpForm);
 router.post('/users/signup', signUp);
 
 router.get('/users/confirmation/:token', confirmPost);
+
+router.get('/users/myAccount', isAuthenticated, myAccount);
 
 //Payment
 router.get('/users/select-subscription/:id', renderSubs);

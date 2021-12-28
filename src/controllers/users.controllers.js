@@ -107,9 +107,13 @@ usersCtrl.renderSignInForm = (req, res) => {
 };
 usersCtrl.signIn = passport.authenticate('login-normal', {
     failureRedirect: '/users/signin',
-    successRedirect: '/',
+    successRedirect: '/users/myAccount',
     failureFlash: true
 });
+
+usersCtrl.myAccount = (req, res) => {
+    res.render('users/myAccount');
+}
 
 //Users Signin for Subscription
 usersCtrl.renderSignInFormForSubscription = (req, res) => {

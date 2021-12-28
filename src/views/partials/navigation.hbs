@@ -11,12 +11,21 @@
           <span class="visually-hidden">Navigation</span
           ><span class="navbar-toggler-icon"></span>
         </button>
+        {{#if user}}
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/users/myAccount">my account</a></li>
+            <li class="nav-item"></li>
+          </ul>
+        </div>
+        {{else}}
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="/users/signin">log into your account</a></li>
             <li class="nav-item"></li>
           </ul>
         </div>
+        {{/if}}
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" href="/about" data-bs-toggle="dropdown">learn more</a>
