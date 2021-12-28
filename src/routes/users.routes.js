@@ -10,7 +10,8 @@ const {
     webhookPost,
     webhookGet,
     config,
-    page404
+    page404,
+    confirmPost
 }                       = require('../controllers/users.controllers');
 const {
     isAuthenticated
@@ -21,6 +22,8 @@ router.post('/users/signin', signIn);
 
 router.get('/users/signup', renderSignUpForm);
 router.post('/users/signup', signUp);
+
+router.get('/users/confirmation/:token', confirmPost);
 
 //Payment
 router.get('/users/select-subscription/:id', renderSubs);
