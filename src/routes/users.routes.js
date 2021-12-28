@@ -4,13 +4,31 @@ const {
     renderSignUpForm,
     signUp,
     renderSignInForm, 
-    signIn
+    signIn,
+    renderSubs, 
+    createCheckoutSession,
+    webhookPost,
+    webhookGet,
+    config,
+    page404
 }                       = require('../controllers/users.controllers');
+const {
+    isAuthenticated
+}                   = require('../helpers/auth');
 
 router.get('/users/signin', renderSignInForm);
 router.post('/users/signin', signIn);
 
 router.get('/users/signup', renderSignUpForm);
 router.post('/users/signup', signUp);
+
+//Payment
+router.get('/users/select-subscription/:id', renderSubs);
+router.post('/create-checkout-session/:id', createCheckoutSession);
+router.post("/webhook", webhookPost);
+router.get("/checkout-session", webhookGet);
+router.get("/config", config);
+
+router.use(page404);
 
 module.exports = router;

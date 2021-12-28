@@ -82,6 +82,26 @@ input[type="button"] {
 .btn {
     transition: all 0.3s;
 }
+.payment-card {
+    background: linear-gradient(335deg, rgba(242,20,255,1) 0%, #fd7e14 60%);
+    width: 60%;
+    max-width: 25rem;
+    min-height: 15rem;
+    margin: auto ;
+}
+.payment-page {
+    max-width: 90%;
+    margin: auto;
+    margin-top: 6rem;
+}
+.payment-card-header {
+    margin: auto;
+}
+.remainder {
+    width: 100%;
+    max-width: 25rem;
+    margin: auto ;
+}
 @media (max-width: 1024px) {
     .signup-form {
         max-width: 450px;
@@ -102,5 +122,20 @@ input[type="button"] {
         width: 90%;
         margin: auto;
         margin-top: 6rem;
+    }
+    .payment-card {
+        max-width: 450px;
+        width: 90%;
+        min-height: 12rem;
+        margin: auto !important;
+    }
+    .payment-page {
+        max-width: 95%;
+        margin: auto;
+        margin-top: 6rem;
+    }
+    .remainder {
+        width: 100%;
+        margin: auto ;
     }
 }

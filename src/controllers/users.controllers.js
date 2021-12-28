@@ -74,7 +74,7 @@ usersCtrl.signUp = async (req, res) => {
                 } catch (err) {
                     console.log(err);
                     req.flash('error_msg', 'Oops! Something went wrong, try again later');
-                    res.redirect('/');
+                    res.redirect(`/users/select-subscription/${idForSubscription}`);
                 }
             }
         } catch (err) {

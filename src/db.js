@@ -1,7 +1,7 @@
 const mongoose          = require('mongoose');
 
-//const { AUTH_APP_MONGODB_HOST, AUTH_APP_MONGODB_DATABASE} = process.env;
-//const MONGODB_URI_LOCAL = `mongodb://${AUTH_APP_MONGODB_HOST}/${ AUTH_APP_MONGODB_DATABASE}`;
+const { AUTH_APP_MONGODB_HOST, AUTH_APP_MONGODB_DATABASE} = process.env;
+const MONGODB_URI_LOCAL = `mongodb://${AUTH_APP_MONGODB_HOST}/${ AUTH_APP_MONGODB_DATABASE}`;
 const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD
 
 

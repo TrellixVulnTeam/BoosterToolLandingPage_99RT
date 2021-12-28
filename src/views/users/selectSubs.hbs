@@ -1,0 +1,17 @@
+<div class="vh-100 payment-page ">
+    <h1 class="mb-4 text-white">Choose a collaboration plan</h1>
+    <div class="card payment-card mb-3">
+        <div class="card-header"><h4 class="text-white payment-card-header">Hydrus Basic</h4></div>
+        <div class="card-body">
+            <form action="/create-checkout-session/{{id}}" method="POST">
+                <input type="hidden" id="basicPrice" name="priceId" value="1000" />
+                <div class="name mt-1"><p class="text-white">Starter</p> </div>
+                <div class="price mt-1 mb-2"><p class="text-white">$100<small>mxn</small></p></div>
+                <button class="btn btn-primary rounded-pill">Select</button>
+            </form>
+        </div>
+    </div>
+    <p class="text-white remainder"><small>Remember <em>The email in the payment details must be the same as the one you register
+                with</em>.</small></p>
+</div>
+<div id="error-message" class="error-message"></div>
