@@ -50,6 +50,10 @@ usersCtrl.signUp = async (req, res) => {
                     const newUser = new User({name, email, password, stripeId, stripeInvoicePrefix});
                     newUser.password = await newUser.encryptPassword(password);
                     newUser.active = false;
+                    ////////////////////////////////////////////////////////////////
+                    const key = jwt.sign({ email }, process.env.TOKEN_SECRETO);
+                    newUser.key = key;
+                    ////////////////////////////////
                     await newUser.save();
                     const id = newUser.id;
                     jwt.sign({ id }, process.env.TOKEN_SECRETO, { expiresIn: '1d', },
@@ -111,8 +115,15 @@ usersCtrl.signIn = passport.authenticate('login-normal', {
     failureFlash: true
 });
 
-usersCtrl.myAccount = (req, res) => {
-    res.render('users/myAccount');
+usersCtrl.myAccount = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).lean();
+        res.render('users/myAccount', { user });
+    } catch (err) {
+        console.log(err);
+        req.flash('error_msg', 'Oops, having trouble on that page, try again later');
+        res.redirect('/');
+    }
 }
 
 //Users Signin for Subscription

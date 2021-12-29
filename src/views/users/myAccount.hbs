@@ -1,13 +1,13 @@
 <div class="bg-dark aboutus-page vh-100">
     <div class="aboutus-text">
         <h3 class="display-5 text-white">My Account</h3>
-        <p class="text-white mt-5">Welcome to the family</p>
+        <p class="text-white mt-5">Welcome to the family, {{user.name}}</p>
     </div>
     <div class="show-hide-key">
         <h3 class="display-6 text-white">My Key</h3>
         <span class="span3 text-white" tabindex="0">Hide Key</span>
         <span class="span2 text-white" tabindex="0">Show Key</span>
-        <p class="key alert mt-3">Your key here</p>
+        <p class="key alert mt-3">{{user.key}}</p>
     </div>
     <div class="logout">
 

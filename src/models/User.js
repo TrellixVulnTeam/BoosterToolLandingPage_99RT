@@ -32,8 +32,12 @@ const UserSchema = new Schema({
     stripeInvoicePrefix: {
         type: String,
     },
-    stripeSubscriptionId: {
+    key: {
         type: String,
+    },
+    keyUsed: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true
@@ -46,7 +50,7 @@ UserSchema.methods.encryptPassword = async password => {
 
 UserSchema.methods.matchPassword = async function(password) {
     return await bcrypt.compare(password, this.password);
-}
+};
 
 module.exports = model('User', UserSchema, 'users');
 

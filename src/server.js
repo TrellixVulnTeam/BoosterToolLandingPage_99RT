@@ -68,6 +68,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //////////////////////////////// ROUTES
 app.use(require('./routes/index.routes'));
 app.use(require('./routes/users.routes'));
+///
 
 
 module.exports = app;
