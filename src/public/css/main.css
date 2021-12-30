@@ -109,9 +109,25 @@ input[type="button"] {
     padding: 2rem;
 }
 .key {
+    background-color: #343A40;
     color: #343A40;
     margin-top: 1rem;
     word-wrap: break-word;
+    resize: none;
+    border: none;
+    overflow: auto;
+    outline: none;
+    height: auto;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none
+}
+.copy {
+    border-radius: 1rem;
+    margin-left: 1rem;
+    padding: 7px 1rem;
+    background: linear-gradient(335deg, rgba(242,20,255,1) 0%, #fd7e14 60%);
+    color: #fff;
 }
 .span2, .span3 {
     padding: 0.5rem;
@@ -119,15 +135,21 @@ input[type="button"] {
 .span3:focus ~ .alert {
     color: #343A40;
   }
-  .span2:focus ~ .alert {
+.span2:focus ~ .alert {
     color: white;
-  }
+}
+.span2:hover, .span3:hover {
+    cursor: pointer;
+}
 @media (max-width: 1024px) {
     .signup-form {
         max-width: 450px;
         width: 90%;
         margin: auto;
         margin-top: 6rem;
+    }
+    .key {
+        min-height: 13rem;
     }
     .dropdown-menu {
         border: none !important;

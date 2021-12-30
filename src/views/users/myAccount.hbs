@@ -7,7 +7,9 @@
         <h3 class="display-6 text-white">My Key</h3>
         <span class="span3 text-white" tabindex="0">Hide Key</span>
         <span class="span2 text-white" tabindex="0">Show Key</span>
-        <p class="key alert mt-3">{{user.key}}</p>
+        <textarea class="key alert mt-3" id="keyForCopy" >{{user.key}}</textarea>
+        <p class="text-white "><small>Keep on secret your key, don't share it with anybody, as soon as the key is registered on the app, it will be useless</small></p>
+        <button onclick="copyToClipboard()" class="copy">Copy</button>
     </div>
     <div class="logout">
 
